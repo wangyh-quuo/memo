@@ -2,17 +2,18 @@
   <ul class="memo-list" @click="showThisMemo" ref="memoList">
     <li
       class="memo-item"
-      v-for="i of 10"
-      :key="i"
+      v-for="item of memo.memoList"
+      :key="item.id"
+      :id="item.id"
       v-choose
     >
-      <div v-show="choose">
+      <div v-show="isClickEdit">
         <i class="iconfont icon-circle"></i>
       </div>
       <div class="content">
-        <h1 class="title">今天是充满希望的一天dasdassadasdasdasdasdasdasdasdas</h1>
+        <h1 class="title">{{item.content}}</h1>
         <p class="other">
-          <span>12:19</span>
+          <span>{{ item.date }}</span>
         </p>
       </div>
     </li>
@@ -23,7 +24,7 @@ import { mapState } from "vuex";
 export default {
   name: "MemoList",
   computed: {
-    ...mapState(["choose","isClickEdit"])
+    ...mapState(["memo","isClickEdit"])
   },
   data() {
     return {
@@ -53,10 +54,20 @@ export default {
     }
   },
   methods: {
+    //递归获取memo所在的LI元素
+    getLI(ele) {
+      if(ele.nodeName.toUpperCase()!='LI'){
+        ele = ele.parentNode;
+        return this.getLI(ele);
+      }else{
+        return ele;
+      }
+    },
     showThisMemo(e){
       //如果不是编辑状态，则跳转到备忘录详细页面
+      const ele = this.getLI(e.target);
       if(!this.isClickEdit){
-        this.$router.push({name: 'memo',parmas:{id: 1 }});
+       this.$router.push({ name: 'memo', params: { id: ele.getAttribute("id") }});
       }
     },
     cancel(){
@@ -68,7 +79,6 @@ export default {
     }
   },
   mounted() {
-    //this.cancel();
   },
 };
 </script>

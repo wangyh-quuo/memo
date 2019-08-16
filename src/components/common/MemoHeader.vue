@@ -1,14 +1,14 @@
 <template>
   <header>
     <div class="header-nav">
-      <div class="header-left">
-        <i class="iconfont icon-back" v-if="headerLeft"></i>
+      <div class="header-left" @click="back">
+        <slot name="icon"></slot>
       </div>
       <div class="header-right">
-        <span class="edit" @click="edit" v-text="editOrCancel"></span>
+        <slot name="edit"></slot>
       </div>
     </div>
-    <h1 v-text="pageTitle" class="pageTitle"></h1>
+    <slot name="pageTitle"></slot>
   </header>
 </template>
 <script>
@@ -18,40 +18,13 @@ export default {
   data() {
     return {
       pageTitle: "备忘录", //标题
-      editOrCancel: "编辑",
-      headerLeft: true, //是否需要返回图标
     }
   },
   methods: {
-    ...mapMutations(["reverseEdit"]),
-    edit() {
-      if(this.editOrCancel == '取消'){
-        //去除memo的样式,找到memo-list组件
-        const components = this.$parent.$children;
-        components.some(component=> {
-          try {
-            const collection = component.$refs.memoList.children;
-            for (const li of collection) {
-              li.style.backgroundColor = '';
-              //获得li的子元素i元素选择框
-              const e = li.children[0].children[0];
-              //取消选中
-              e.classList.remove("icon-choose");
-              e.classList.add("icon-circle");
-            }
-            return true;
-          } catch (error) {
-            //console.log("组件没有$refs.memoList")
-            return false;
-          }
-        })
-      }
-      //修改文本
-      this.editOrCancel = this.editOrCancel == '编辑' ? '取消':'编辑';
-      //修改为编辑状态
-      this.reverseEdit();
+    back(){
+      this.$router.back();
     }
-  },
+  }
 };
 </script>
 
@@ -65,13 +38,14 @@ export default {
     z-index 1
   .header-left
     width 50%
+    color #D7973B
   .header-right
     width 50%
+    color #D7973B
     .edit 
-      font-size 0.16rem
+      font-size 0.14rem
       float right
       padding-right 0.1rem
-      color #D7973B
   .pageTitle
     font-size 0.24rem
     font-family "微软雅黑"

@@ -60,7 +60,7 @@ export default {
       const memo = {
         id: new Date().getTime(),
         content: this.content,
-        date: new Date('2019/08/15 10:35')
+        date: new Date().format("yyyy/MM/dd hh:mm:ss")
       }
       this.addMemo(memo);
     }

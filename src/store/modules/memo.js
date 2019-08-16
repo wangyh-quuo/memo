@@ -3,11 +3,6 @@ const state = {
   thisMemo: {} //memo详细
 };
 const getters = {
-  //根据关键词搜索
-  getMemo(state) {
-    //TODO: 根据关键词搜索
-    return state.memoList;
-  }
 };
 const mutations = {
   /* 增 */

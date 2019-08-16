@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <memo-header>
+    <memo-header v-show="!search">
       <template #icon>
         <i class="iconfont icon-back"></i>
       </template>
@@ -49,7 +49,7 @@ export default {
     MemoFooter
   },
   computed: {
-    ...mapState(["isClickEdit"]),
+    ...mapState(["isClickEdit","search"]),
     //文本值
     editOrCancel() {
       return this.isClickEdit?'取消':'编辑';

@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     back(){
-      this.$router.back();
+      this.$router.push("/");
     }
   }
 };
@@ -46,6 +46,8 @@ export default {
       font-size 0.14rem
       float right
       padding-right 0.1rem
+    .disable
+      color: #ccc
   .pageTitle
     font-size 0.24rem
     font-family "微软雅黑"

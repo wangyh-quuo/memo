@@ -25,11 +25,12 @@ export default {
     ...mapState(["memo","isClickEdit"])
   },
   methods: {
-    ...mapMutations(["reverseEdit","deleteAll","deleteMemo"]),
+    ...mapMutations(["reverseEdit","deleteAll","deleteMemo","success"]),
     /* 删除所有memo */
     delAll() {
       this.deleteAll();
       this.reverseEdit();
+      this.success();
     },
     /* 删除选中的memo */
     delChoose(){
@@ -50,6 +51,9 @@ export default {
       })
       //调用删除方法
       this.deleteMemo(chooseList);
+      //删除成功后
+      this.reverseEdit();
+      this.success();
     }
   },
 };

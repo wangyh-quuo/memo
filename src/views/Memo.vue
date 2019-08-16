@@ -18,18 +18,20 @@
         <memo-editor></memo-editor>
       </article>
     </section>
-    
+    <tips></tips>
   </div>
 </template>
 <script>
 import MemoHeader from "@/components/common/MemoHeader";
 import MemoEditor from "@/components/common/MemoEditor";
+import Tips from "@/components/common/Tips";
 import { mapMutations, mapState } from "vuex";
 export default {
   name: "Memo",
   components: {
     MemoHeader,
-    MemoEditor
+    MemoEditor,
+    Tips
   },
   data() {
     return {
@@ -40,7 +42,7 @@ export default {
     ...mapState(["memo"])
   },
   methods: {
-    ...mapMutations(["addMemo","queryMemoById"]),
+    ...mapMutations(["addMemo","queryMemoById","updateMemo","success"]),
     //获得编辑器里的内容
     getContent(){
       const component = this.$children;
@@ -56,13 +58,28 @@ export default {
       })
     },
     submit() {
+      //如果params==0则是新增memo页面，则直接添加,否则为修改页面
       this.getContent();
-      const memo = {
-        id: new Date().getTime(),
-        content: this.content,
-        date: new Date().format("yyyy/MM/dd hh:mm:ss")
+      if(this.$router.currentRoute.params.id==0){
+        const memo = {
+          id: new Date().getTime(),
+          content: this.content,
+          date: new Date().format("yyyy/MM/dd hh:mm:ss")
+        }
+        this.addMemo(memo);
+        this.success("添加成功!");
+        //添加成功后跳转页面
+        this.$router.push({name: 'memo', params: {id: memo.id}});
+      }else{
+        //更新该memo的数据
+        const memo = {
+          id: this.$router.currentRoute.params.id,
+          content: this.content,
+          date: new Date().format("yyyy/MM/dd hh:mm:ss")
+        }
+        this.updateMemo(memo);
+        this.success("修改成功!");
       }
-      this.addMemo(memo);
     }
   },
   beforeRouteEnter (to, from, next) {

@@ -6,7 +6,8 @@
       </template>
 
       <template #edit>
-        <span class="edit" @click="edit" v-text="editOrCancel"></span>
+        <span class="edit" v-show="memo.memoList.length" @click="edit" v-text="editOrCancel"></span>
+        <span class="edit disable" v-show="!memo.memoList.length" v-text="editOrCancel"></span>
       </template>
 
       <template #pageTitle>
@@ -21,10 +22,13 @@
     <section>
       <memo-list></memo-list>
     </section>
+    <!-- 提示 -->
+    <tips></tips>
     <section>
       <div style="padding-bottom: 0.4rem;"></div>
       <memo-footer></memo-footer>
     </section>
+    
   </div>
 </template>
 
@@ -32,6 +36,7 @@
 // @ is an alias to /src
 import MemoHeader from "@/components/common/MemoHeader";
 import Search from "@/components/common/Search";
+import Tips from "@/components/common/Tips";
 import MemoList from "@/components/home/MemoList";
 import MemoFooter from "@/components/home/MemoFooter";
 import { mapMutations, mapState } from "vuex";
@@ -46,13 +51,14 @@ export default {
     MemoHeader,
     Search,
     MemoList,
-    MemoFooter
+    MemoFooter,
+    Tips
   },
   computed: {
-    ...mapState(["isClickEdit","search"]),
+    ...mapState(["memo", "isClickEdit", "search"]),
     //文本值
     editOrCancel() {
-      return this.isClickEdit?'取消':'编辑';
+      return this.isClickEdit ? "取消" : "编辑";
     }
   },
   methods: {

@@ -25,7 +25,7 @@ export default {
     ...mapState(["memo"])
   },
   methods: {
-    ...mapMutations(["deleteMemo"]),
+    ...mapMutations(["deleteMemo","success"]),
     /* 添加代办 */
     addTodo() {
       const todo = document.createElement("div");
@@ -47,6 +47,7 @@ export default {
     /* 删除备忘录 */
     delMemo(){
       this.deleteMemo(this.memo.thisMemo.id);
+      this.success();
       //回到备忘录页面
       this.$router.push("/");
     }

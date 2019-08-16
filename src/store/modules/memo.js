@@ -23,7 +23,6 @@ const mutations = {
             break;
           }
         }
-        console.log(state.memoList);
       } else {
         //否则删除当前这个memo
         if (element.id == payload) {
@@ -40,7 +39,15 @@ const mutations = {
   },
   /* 改 */
   updateMemo(state, payload) {
-    state.memoList.unshift(payload);
+    for (const key in state.memoList) {
+      if (state.memoList.hasOwnProperty(key)) {
+        const element = state.memoList[key];
+        if(element.id==payload.id){
+          state.memoList[key]=payload;
+        }
+      }
+    }
+    
   },
   /* 根据id查询memo */
   queryMemoById(state, payload) {

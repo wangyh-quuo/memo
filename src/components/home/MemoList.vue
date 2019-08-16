@@ -11,7 +11,7 @@
         <i class="iconfont icon-circle"></i>
       </div>
       <div class="content">
-        <h1 class="title">{{item.content}}</h1>
+        <h1 class="title">{{item.content | textFormat }}</h1>
         <p class="other">
           <span>{{ item.date }}</span>
         </p>
@@ -30,6 +30,11 @@ export default {
     return {
       currentChoose: false
     };
+  },
+  filters: {
+    textFormat: function(value) {
+      return value.replace(/<[\s|\S]+\/?>/g,'\t')
+    }
   },
   directives: {
     choose: {

@@ -55,8 +55,10 @@ const mutations = {
       if (memo.id == payload) {
         state.thisMemo = memo;
         return true;
+      }else{
+        state.thisMemo = {};
+        return false;
       }
-      return false;
     });
   }
 };

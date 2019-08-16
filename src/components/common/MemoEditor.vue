@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="box" ref="editor" contenteditable="true">
-      {{memo.thisMemo.content}}
+    <div class="box" ref="editor" contenteditable="true" v-html="memo.thisMemo.content">
     </div>
     <footer class="footer">
       <!-- tabbar -->

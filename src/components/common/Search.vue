@@ -13,7 +13,7 @@
         <p>已找到{{queryResult.length}}项</p>
       </div>
       <router-link tag="div" :to="{name: 'memo', params: {id: item.id}}" class="result-item" v-for="item of queryResult" :key="item.id">
-        <p>{{item.content}}</p>
+        <p>{{item.content | textFormat}}</p>
         <p>{{item.date}}</p>
       </router-link>
     </div>
@@ -36,6 +36,11 @@ export default {
   },
   computed: {
     ...mapState(["memo","search"])
+  },
+  filters: {
+    textFormat: function(value){
+      return value.replace(/<[\s|\S]+\/?>/g,'');
+    }
   },
   methods: {
     ...mapMutations(["reverseSearch"]),

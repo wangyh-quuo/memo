@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.16bbaba0d9780568ca7156fc7dfde340.js"
+  "/precache-manifest.c700cdb012a0b1a94b9d3001ba121e3b.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "memo"});

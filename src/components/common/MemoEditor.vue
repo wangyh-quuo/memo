@@ -30,18 +30,20 @@ export default {
       const todo = document.createElement("div");
       todo.setAttribute("data","no");
       todo.classList.add('iconfont','icon-circle');
-      todo.addEventListener('click',()=>{
-        if(todo.getAttribute('data')=='no'){
-          todo.classList.remove('icon-circle');
-          todo.classList.add('icon-choose');
-          todo.setAttribute('data','yes');
-        }else{
-          todo.classList.remove('icon-choose');
-          todo.classList.add('icon-circle');
-          todo.setAttribute('data','no');
-        }
-      });
       this.$refs.editor.appendChild(todo);
+    },
+    /* 点击todo */
+    todoClick(el){
+      const target = el.target;
+      if(target.getAttribute('data')=='no'){
+        target.classList.remove('icon-circle');
+        target.classList.add('icon-choose');
+        target.setAttribute('data','yes');
+      }else if(target.getAttribute('data')=='yes'){
+        target.classList.remove('icon-choose');
+        target.classList.add('icon-circle');
+        target.setAttribute('data','no');
+      }
     },
     /* 删除备忘录 */
     delMemo(){
@@ -50,7 +52,11 @@ export default {
       //回到备忘录页面
       this.$router.push("/");
     }
-  }
+  },
+  mounted() {
+    //给todo图标添加点击事件，使得在进入该页面时能够有效果
+    this.$refs.editor.addEventListener("click",this.todoClick);
+  },
 };
 </script>
 
